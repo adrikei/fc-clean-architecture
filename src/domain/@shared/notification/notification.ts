@@ -1,30 +1,27 @@
 export type NotificationErrorProps = {
-  message: string;
-  context: string;
-};
+  message: string
+  context: string
+}
 
 export default class Notification {
-  private errors: NotificationErrorProps[] = [];
+  private errors: NotificationErrorProps[] = []
 
   addError(error: NotificationErrorProps) {
-    this.errors.push(error);
+    this.errors.push(error)
   }
 
   hasErrors(): boolean {
-    return this.errors.length > 0;
+    return this.errors.length > 0
   }
 
   getErrors(): NotificationErrorProps[] {
-    return this.errors;
+    return this.errors
   }
 
-  messages(context?: string): string {
-    let message = "";
-    this.errors.forEach((error) => {
-      if (context === undefined || error.context === context) {
-        message += `${error.context}: ${error.message},`;
-      }
-    });
-    return message;
+  messages(filterContext?: string): string {
+    return this.errors
+      .filter((error) => filterContext === undefined || error.context === filterContext)
+      .map((error) => `${error.context}: ${error.message}`)
+      .join(', ')
   }
 }
