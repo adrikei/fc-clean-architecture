@@ -13,9 +13,6 @@ export default class Product extends Entity implements ProductInterface {
     this._name = name
     this._price = price
     this.validate()
-    if (this.notification.hasErrors()) {
-      throw new NotificationError(this.notification.getErrors())
-    }
   }
 
   get id(): string {
@@ -42,5 +39,8 @@ export default class Product extends Entity implements ProductInterface {
 
   validate() {
     ProductValidatorFactory.create().validate(this)
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors())
+    }
   }
 }
